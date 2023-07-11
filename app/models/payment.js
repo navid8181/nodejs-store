@@ -8,6 +8,6 @@ const schema = new mongoose.Schema({
 
 module.exports = {
 
-    BlogModel : mongoose.model("",schema)
+    paymentModel : mongoose.model("payment",schema)
 
 }
