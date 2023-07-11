@@ -9,6 +9,6 @@ const schema = new mongoose.Schema({
 
 module.exports = {
 
-    BlogModel : mongoose.model("category",schema)
+    CategoryModel : mongoose.model("category",schema)
 
 }
