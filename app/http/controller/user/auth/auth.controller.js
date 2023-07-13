@@ -1,13 +1,15 @@
 const createHttpError = require("http-errors");
-const {authSchema} = require("../../validators/user/auth.schema");
-const Controller = require("../controller");
+const { authSchema } = require("../../../validators/user/auth.schema");
 
-module.exports = new class HomeController extends Controller {
+class UserAuthController{
 
-    async indexPage(req, res, next) {
 
+    async login(req,res,next){
+
+        
         try {
 
+           
             const result = await authSchema.validateAsync(req.body);
 
 
@@ -16,6 +18,16 @@ module.exports = new class HomeController extends Controller {
             next(createHttpError.BadRequest(error.message))
         }
 
+
+
     }
+
+
+}
+
+
+module.exports = {
+
+    UserAuthController : new UserAuthController()
 
 }

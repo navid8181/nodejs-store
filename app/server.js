@@ -1,7 +1,9 @@
 const express = require('express');
+const createErrors = require('http-errors');
 const {default: mongoose} = require('mongoose');
 const path = require('path');
 const {allRoutes} = require('./router/router');
+const morgan = require('morgan');
 
 module.exports = class Application {
 
@@ -24,6 +26,7 @@ module.exports = class Application {
 
     configApplication() {
 
+        this.#app.use(morgan("dev"));
         this.#app.use(express.json());
         this.#app.use(express.urlencoded({extended: true}));
         this.#app.use(express.static(path.join(__dirname, "..", "public")));
@@ -46,16 +49,37 @@ module.exports = class Application {
 
 
         try {
-            console.log("connect to mongodb...");
+       
             await mongoose.connect(this.#DB_URI)
 
             console.log("connect to mongodb is successful");
+           
 
         } catch (error) {
             console.log("Unable to connect to mongodb ");
             console.log(error.message);
         }
 
+        mongoose.connection.on("connected",()=>{
+
+            console.log("connect to mongodb is successful");
+
+        })
+
+        mongoose.connection.on("disconnected",()=>{
+
+            console.log("disconnect to mongodb...");
+
+        })
+
+        process.on('SIGINT',async()=>{
+
+           await mongoose.connection.close();
+           console.log("mongo Connection is Closed...");
+
+           process.exit(0);
+
+        })
 
     }
 
@@ -70,17 +94,28 @@ module.exports = class Application {
 
         this.#app.use((req, res, next) => {
 
-            return res.status(404).json({status: 404, message: "آدرس مورد نظر یافت نشد"})
+            next(createErrors.NotFound( "آدرس مورد نظر یافت نشد"))
 
 
         })
 
         this.#app.use((error, req, res, next) => {
 
-            const status = error.status || 500;
-            const message = error.message || "Internal Error";
+            const serverError = createErrors.InternalServerError();
 
-            return res.status(status).json({status, message})
+            const statusCode = error.status || serverError.status;
+       
+            const message = error.message || serverError.message;
+
+            return res.status(statusCode).json({
+
+                errors : {
+                    statusCode,
+                     message
+                }
+
+
+            })
 
 
         })
