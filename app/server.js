@@ -5,6 +5,10 @@ const path = require('path');
 const {allRoutes} = require('./router/router');
 const morgan = require('morgan');
 
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDock = require('swagger-jsdoc');
+
+
 module.exports = class Application {
 
     #app = express();
@@ -31,6 +35,38 @@ module.exports = class Application {
         this.#app.use(express.urlencoded({extended: true}));
         this.#app.use(express.static(path.join(__dirname, "..", "public")));
 
+        this.#app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(swaggerJsDock({
+
+          swaggerDefinition :{
+
+            info :{
+                title : "My Store",
+                version : "1.0.0",
+                description : "یک فروشگاه محصولات ....",
+                contact :{
+                    name : "navid rezaei",
+                    email: "nr5391894@gmail.com"
+                    
+                }
+            
+
+
+            },
+            
+            servers : [
+                {
+                    url : "http://localhost:3000"
+                
+                }
+            ]
+
+          },
+          apis :["./app/router/**/*.js"]
+          
+
+
+
+        })))
     }
 
     createServer() {
