@@ -1,20 +1,20 @@
 const createHttpError = require("http-errors");
-const {authSchema} = require("../../../validators/user/auth.schema");
+const {authSchema, getOtpSchema, checkOtpSchema} = require("../../../validators/user/auth.schema");
 const {UserModel} = require("../../../../models/user");
-const {removeWrongData, randomNumberGenerator} = require("../../../../utils/function");
-const { EXPIRESIN, USERROLE } = require("../../../../utils/Constant");
+const {removeWrongData, randomNumberGenerator, signAccessToken} = require("../../../../utils/function");
+const { EXPIRESIN, USER_ROLE } = require("../../../../utils/Constant");
 const Controller = require("../../controller");
 
 class UserAuthController extends Controller {
 
 
-    async login(req, res, next) {
+    async getOtp(req, res, next) {
 
 
         try {
 
            
-             await authSchema.validateAsync(req.body);
+             await getOtpSchema.validateAsync(req.body);
             const {mobile} = req.body;
 
             const code = randomNumberGenerator();
@@ -35,11 +35,49 @@ class UserAuthController extends Controller {
 
             });
         } catch (error) {
-            next(createHttpError.BadRequest(error.message))
+            next(error)
         }
 
 
     }
+
+
+    async checkOtp(req,res,next){
+
+        try {
+
+            await checkOtpSchema.validateAsync(req.body);
+            const {mobile,code} = req.body;
+
+            console.log(mobile);
+            const user = await UserModel.findOne({mobile});
+
+            if (!user) throw createHttpError.NotFound("کاربری با این مشخصات یافت نشد");
+
+            if (user.otp.code != code) throw createHttpError.Unauthorized("کد ارسال شده صحیح نمی باشد")
+            
+            const currentTime = Date.now();
+            if (+user.otp.expiresIn < currentTime) throw createHttpError.Unauthorized("کد شما منقضی شده است")
+
+            const accessToken = await signAccessToken(user._id);
+
+            return res.json({
+
+                data :{
+                    accessToken
+                }
+
+            })
+            
+            
+        } catch (error) {
+            next(error)
+        }
+
+
+    }         
+
+
 
     async saveUser(mobile, code) {
 
@@ -57,7 +95,7 @@ class UserAuthController extends Controller {
         }
       
 
-        return !!(await UserModel.create({mobile, otp,Role :[USERROLE]}))
+        return !!(await UserModel.create({mobile, otp,Role :[USER_ROLE]}))
 
     }
 
