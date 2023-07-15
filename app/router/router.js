@@ -1,3 +1,4 @@
+const { VerifyAccessToken } = require('../http/middlewares/VerifyAccessToken');
 const { HomeRoutes } = require('./api');
 const { UserAuthRoutes } = require('./users/auth');
 
@@ -6,6 +7,7 @@ const router = require('express').Router();
 
 
 router.use("/user",UserAuthRoutes)
+
 router.use("/",HomeRoutes);
 
 
