@@ -35,7 +35,9 @@ function VerifyAccessToken(req, res, next) {
             if (! user) 
                 return next(createHttpError.Unauthorized("کاربری با این مشخصات یافت نشد"))
 
+
             
+
 
             req.user = user;
 
@@ -48,9 +50,6 @@ function VerifyAccessToken(req, res, next) {
     } else 
 
         return next(createHttpError.Unauthorized("دوباره وارد حساب کاربری خود بشوید"))
-
-    
-
 }
 
 module.exports = {
