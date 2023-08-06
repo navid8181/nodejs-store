@@ -1,6 +1,7 @@
 const {VerifyAccessToken} = require('../http/middlewares/VerifyAccessToken');
 const redisClient = require('../utils/init_redis');
 const {DeveloperRoutes} = require('./Developer.routes');
+const { AdminRoutes } = require('./admin/admin.routes');
 const {HomeRoutes} = require('./api');
 const {UserAuthRoutes} = require('./users/auth');
 
@@ -19,6 +20,8 @@ const router = require('express').Router();
 
 
 router.use('/developer',DeveloperRoutes)
+
+router.use('/admin',AdminRoutes)
 
 router.use("/user", UserAuthRoutes)
 

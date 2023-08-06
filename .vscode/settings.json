@@ -4,6 +4,7 @@
         "autob",
         "EXPIRESIN",
         "USERROL",
-        "USERROLE"
+        "USERROLE",
+        "virtuals"
     ]
 }

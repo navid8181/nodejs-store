@@ -1,6 +1,6 @@
 
 module.exports = {
-
+    MongoIdPattern : /^[a-f\d]{24}$/i,
     ROLE : {
         USER : "USER",
         ADMIN: "ADMIN",
