@@ -1,3 +1,5 @@
+
+const { createBlogSchema } = require("../../validators/admin/blog.schema");
 const Controller = require("../controller");
 
 
@@ -5,9 +7,21 @@ class BlogController extends Controller {
 
     async createBlog(req,res,next){
 
+        const upload = uploadFile.single("image")
 
         try {
-            
+        
+            const blogDataBody = await createBlogSchema.validateAsync(req.body)
+
+            req.body.image = req.body.filename
+
+            return res.json({
+
+                blogDataBody,
+                ...req.body
+            })
+          
+
         } catch (error) {
 
             next(error)
