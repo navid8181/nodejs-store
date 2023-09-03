@@ -7,8 +7,8 @@ function VerifyAccessToken(req, res, next) {
 
     const headers = req.headers;
 
-    const [Bearer, accesstoken] = headers ?. accesstoken ?. split(" ") || [];
-
+    const [Bearer, accesstoken] = headers ?. authorization ?. split(" ") || [];
+    console.log(accesstoken);
     if (accesstoken && Bearer ?. toLowerCase() === "bearer") {
 
         jsonwebtoken.verify(accesstoken, SECRET_KEY, async (error, payload) => {
@@ -52,6 +52,32 @@ function VerifyAccessToken(req, res, next) {
         return next(createHttpError.Unauthorized("دوباره وارد حساب کاربری خود بشوید"))
 }
 
+
+function checkRole(Role){
+
+
+    return (req,res,next)=>{
+
+        try {
+
+            const user = req.user;
+            console.log(user);
+            if (!user.Role.includes(Role))
+            throw createHttpError.Forbidden("شما به این قسمت دسترسی ندارید")
+
+            return  next();
+        } catch (error) {
+            next(error)
+        }
+
+
+    }
+
+
+}
+
+
 module.exports = {
-    VerifyAccessToken
+    VerifyAccessToken,
+    checkRole
 }

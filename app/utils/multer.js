@@ -4,9 +4,9 @@ const path = require('path');
 const createHttpError = require('http-errors');
 
 function createRoutes(req) {
-   
+
     const date = new Date();
-    
+
     const year = date.getFullYear().toString();
     const month = date.getMonth().toString();
     const day = date.getDate().toString();
@@ -28,41 +28,69 @@ const storage = multer.diskStorage({
 
     destination: (req, file, cb) => {
 
-        const filePath = createRoutes(req);
+        if (file ?. originalname) {
+            const filePath = createRoutes(req);
 
 
-        cb(null,filePath)
+            cb(null, filePath)
+        } else 
+            cb(null, "")
+
+        
+
     },
 
     filename: (req, file, cb) => {
-      
-        const ext = path.extname(file.originalname)
-        const fileName = String(new Date().getTime() + ext)
-        req.body.filename = fileName;
-        cb(null,fileName)
+        if (file ?. originalname) {
+            const ext = path.extname(file.originalname)
+            const fileName = String(new Date().getTime() + ext)
+            req.body.filename = fileName;
+            cb(null, fileName)
+        } else 
+            cb(null, "")
+
+
+        
+
+
     }
 
 
 })
 
-function fileFilter(req,file,cb){
+function fileFilter(req, file, cb) {
 
     const ext = path.extname(file.originalname)
     console.log(ext);
-    const filterFile = [".jpg",".png",".wep",".gif",".jpeg"]
+    const filterFile = [
+        ".jpg",
+        ".png",
+        ".wep",
+        ".gif",
+        ".jpeg"
+    ]
 
-    if (filterFile.includes(ext)){
-        return cb(null,true)
+    if (filterFile.includes(ext)) {
+        return cb(null, true)
     }
-    return cb(null,false)
+    req.body.errorUpload = true;
+    return cb(null, false)
 
-    //throw createHttpError.BadRequest("فرمت ارسال شده صحیح نمی باشد")
+    // throw createHttpError.BadRequest("فرمت ارسال شده صحیح نمی باشد")
 
-    
+
 }
+const maxSize = 1 * 1000 * 1000;
+const uploadFile = multer({
+    storage,
+    fileFilter,
+    limits: {
+        fileSize: maxSize
+    }
 
- const uploadFile =  multer({storage,fileFilter})
+})
 
-module.exports = { 
-    uploadFile 
+
+module.exports = {
+    uploadFile
 }

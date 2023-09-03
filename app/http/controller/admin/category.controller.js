@@ -154,7 +154,7 @@ class CategoryController extends Controller {
 
             // ])
 
-            const categories = await CategoryModel.find({parent : undefined},{__v : 0});
+            const categories = await CategoryModel.find({parent : undefined},{__v : 0}).populate({path : "children",populate:{path : "children",model : "category",select : {_id : 0,__v : 0}},select : {_id : 0,__v : 0}});
 
             return res.status(200).json({
 

@@ -21,10 +21,10 @@ schema.virtual("children",{
 
 })
 
-schema.pre("find",autoPopulate)
+//schema.pre("find",autoPopulate)
 
 
-schema.pre("findOne",autoPopulate)
+//schema.pre("findOne",autoPopulate)
 
 function autoPopulate (next){
 

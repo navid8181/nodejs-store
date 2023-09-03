@@ -200,5 +200,5 @@ router.get('/parents',CategoryController.getAllParents)
  router.delete('/remove/:id',CategoryController.removeCategory)
 
 module.exports = {
-    CategoryRoutes : router
+    AdminApiCategoryRoutes : router
 }

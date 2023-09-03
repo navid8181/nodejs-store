@@ -8,6 +8,7 @@ const cors = require('cors');
 
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDock = require('swagger-jsdoc');
+const multer = require('multer');
 
 
 module.exports = class Application {
@@ -31,17 +32,22 @@ module.exports = class Application {
     }
 
     configApplication() {
+
         this.#app.use(cors());
         this.#app.use(morgan("dev"));
         this.#app.use(express.json());
         this.#app.use(express.urlencoded({extended: true}));
         this.#app.use(express.static(path.join(__dirname, "..", "public")));
 
-        this.#app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDock({
+        this.#app.use("/api-doc", swaggerUI.serve,
+         swaggerUI.setup(swaggerJsDock({
+
 
             swaggerDefinition: {
 
+
                 info: {
+
                     title: "My Store",
                     version: "1.0.0",
                     description: "یک فروشگاه محصولات ....",
@@ -53,19 +59,43 @@ module.exports = class Application {
 
 
                 },
-
+                openapi: "3.0.0",
+                host: "localhost:3000",
+                basePath: "/",
                 servers: [
                     {
                         url: "http://localhost:3000"
 
                     }
-                ]
-
+                ],
+                components: {
+                    securitySchemes: {
+                      BearerAuth: {
+                        type: 'http',
+                        scheme: 'bearer',
+                        bearerFormat: 'JWT',
+                        name : "accesstoken",
+                        description: 'Bearer token to access these api endpoints',
+                        in : "header"
+                      },
+                    },
+                  },
+                  security: [
+                    {
+                      BearerAuth: [{BearerAuth : []} ],
+                    },
+                  ],
+                
             },
+     
             apis: ["./app/router/**/*.js"]
 
 
-        })))
+        }),{explorer : true})
+        
+        
+        
+        )
     }
 
     createServer() {
@@ -142,6 +172,7 @@ module.exports = class Application {
 
         this.#app.use((error, req, res, next) => {
 
+
             const serverError = createErrors.InternalServerError();
 
             const statusCode = error.status || serverError.status;
@@ -154,6 +185,7 @@ module.exports = class Application {
                     statusCode,
                     message,
                     error
+
                 }
 
 

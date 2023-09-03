@@ -2,6 +2,39 @@ const { UserAuthController } = require('../../http/controller/user/auth/auth.con
 
 const router  = require('express').Router();
 
+/**
+ * 
+ * 
+ * @swagger
+ *  components :
+ *      schemas :
+ *          GetOtp:
+ *              type : object
+ *              required : 
+ *                  -   mobile 
+ *              properties :
+ *                  mobile :
+ *                      type : string
+ *                      description : input mobile to 
+ * 
+ * 
+ *          CheckOtp :
+ *              type : object
+ *              required : 
+ *                  -   mobile
+ *                  -   code
+ *              
+ *              properties :
+ *                  mobile :
+ *                      type : string
+ *                      description : input mobile to  
+ * 
+ *                  code :
+ *                      type : integer
+ *                      description : the code that send to user
+ *          
+ * 
+ */
 
 /**
  * 
@@ -24,12 +57,18 @@ const router  = require('express').Router();
  *          summary : login user in user panel with phone number
  *          description : one time password (otp) login
  *          
- *          parameters :
- *          -   name : mobile
- *              description : fa-IRI phone number
- *              in : formData
- *              required : true         
- *              type : string
+ *          requestBody :
+ *              required : true
+ *              content  : 
+ *                  application/x-www-form-urlencoded :
+ *                      schema :
+ *                          $ref : '#/components/schemas/GetOtp'
+ *                  
+ *                  application/json :
+ *                      schema :
+ *                          $ref : '#/components/schemas/GetOtp'                    
+ *                  
+ *              
  *          responses :
  *              201:
  *                  description : Success
@@ -61,17 +100,16 @@ router.post("/get-otp",UserAuthController.getOtp)
  *          summary : check otp value in user controller
  *          description : check otp code with mobile code and expires data
  *          
- *          parameters :
- *          -  name : mobile
- *             description : fa-IRI phone number
- *             in : formData
- *             required : true         
- *             type : string
- *          -  name : code
- *             description : enter sms code
- *             in : formData 
- *             required : true
- *             type : string                  
+ *          requestBody :
+ *              required : true 
+ *              content :
+ *                  application/x-www-form-urlencoded :
+ *                      schema :
+ *                          $ref : '#/components/schemas/CheckOtp' 
+ * 
+ *                  application/json :
+ *                      schema :
+ *                          $ref : '#/components/schemas/CheckOtp'                  
  *                               
  *          responses :
  *              201:
