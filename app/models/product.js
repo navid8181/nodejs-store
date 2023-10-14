@@ -20,12 +20,12 @@ const schema = new mongoose.Schema({
     time : {type : String },
     format : {type : String },
     supplier : {type : mongoose.Types.ObjectId , required : true},
-    feature : {type : Object ,default : {
+    features : {type : Object ,default : {
         length : "",
         height : "",
         with   : "",
         weight : "",
-        color  : [],
+        colors  : [],
         model  : [],
         made_in : ""
 
@@ -35,6 +35,7 @@ const schema = new mongoose.Schema({
 
 })
 
+schema.index({title : "text",short_text : "text",text : "text"})
 
 module.exports = {
 

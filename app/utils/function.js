@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 function randomNumberGenerator() {
-    return Math.floor((Math.random() * 9_000_0) + 1_000_0);
+    return Math.floor((Math.random() * 90000) + 10000);
 }
 
 
@@ -145,10 +145,15 @@ function removeWrongData(obj = {}, blockList =[]) {
             if (typeof obj[key] === "string") 
                 obj[key].trim()
 
+
             
+
 
             if (Array.isArray(obj[key]) && obj[key].length > 0) 
                 obj[key] = obj[key].map(value => value.trim());
+            
+            if (Array.isArray(obj[key]) && obj[key].length == 0) 
+                delete obj[key];
             
 
 
@@ -162,7 +167,9 @@ function removeWrongData(obj = {}, blockList =[]) {
                 NaN
             ].includes(obj[key])) 
                 delete obj[key]
+
             
+
         }
 
 
@@ -171,12 +178,39 @@ function removeWrongData(obj = {}, blockList =[]) {
 }
 
 function deleteFileInPublic(fileAddress) {
-    if (fileAddress){
+    if (fileAddress) {
         const filePath = path.join(__dirname, "..", "..", "public", fileAddress);
 
         fs.unlinkSync(filePath);
     }
-  
+
+}
+
+function listOfImages(files, uploadPath) {
+
+    if (files ?. length > 0) {
+
+        return files.map(item => {
+
+
+            const resolvePath = path.join(uploadPath, item.filename).replace(/\\/g, "/")
+            console.log("item : ", resolvePath);
+            return resolvePath;
+
+
+        })
+
+    } else 
+        return [];
+    
+
+}
+
+function copyObject(obj = {}) {
+
+    return JSON.parse(JSON.stringify(obj));
+
+
 }
 
 module.exports = {
@@ -185,6 +219,8 @@ module.exports = {
     signAccessToken,
     signRefreshToken,
     VerifyRefreshToken,
-    deleteFileInPublic
+    deleteFileInPublic,
+    listOfImages,
+    copyObject
 
 }

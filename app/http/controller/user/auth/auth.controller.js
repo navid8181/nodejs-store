@@ -4,7 +4,7 @@ const {UserModel} = require("../../../../models/user");
 const {removeWrongData, randomNumberGenerator, signAccessToken, VerifyRefreshToken, signRefreshToken} = require("../../../../utils/function");
 const { ROLE } = require("../../../../utils/Constant");
 const Controller = require("../../controller");
-
+const {StatusCodes : httpStatus} = require('http-status-codes');
 class UserAuthController extends Controller {
 
 
@@ -27,12 +27,14 @@ class UserAuthController extends Controller {
             if (!result)
               throw createHttpError.BadGateway("ورود شما انجام نشد")
 
-            return res.status(200).send({
+            return res.status(httpStatus.OK).send({
 
-                statusCode : 200,
+                statusCode : httpStatus.OK,
+               data : {
                 message : "کد اعنبار سنجی با موفقیت ارسال شد",
                 code,
                 mobile
+               }
 
 
 
@@ -65,8 +67,8 @@ class UserAuthController extends Controller {
 
             const accessToken = await signAccessToken(user._id);
             const RefreshToken  = await signRefreshToken(user._id);
-            return res.json({
-
+            return res.status(httpStatus.OK).json({
+                statusCode : httpStatus.OK,
                 data :{
                     accessToken,
                     RefreshToken

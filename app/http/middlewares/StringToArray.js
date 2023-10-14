@@ -1,38 +1,46 @@
-function StringToArray(field) {
+function StringToArray(...fields) {
 
 
     return function (req, res, next) {
-        console.log(req.body);
-        if (req.body[field]) {
+     
+
+        for (let i = 0; i < fields.length; i++) {
+            console.log( req.body[fields[i]]);
+            
+            if (req.body[fields[i]]) {
         
         
-            if ((typeof req.body[field]) == "string") {
-         
-                if (req.body[field].indexOf("#") >= 0) {
-
-                    req.body[field] = (req.body[field].split("#")).map(item => item.trim()).filter(item => item !=="")
-
-                } if (req.body[field].indexOf(",") >= 0) {
-
-                    req.body[field] = (req.body[field].split(",")).map(item => item.trim()).filter(item => item !=="")
-                   
+                if ((typeof req.body[fields[i]]) == "string") {
+                    
+                    
+                    if (req.body[fields[i]].indexOf("#") >= 0) {
+    
+                        req.body[fields[i]] = (req.body[fields[i]].split("#")).map(item => item.trim()).filter(item => item !=="")
+    
+                    } if (req.body[fields[i]].indexOf(",") >= 0) {
+    
+                        req.body[fields[i]] = (req.body[fields[i]].split(",")).map(item => item.trim()).filter(item => item !=="")
+                       
+                    }
+                    else {
+                        
+                        req.body[fields[i]] = req.body[fields[i]] ? [req.body[fields[i]]] : []
+                    }
+    
+    
+                } else if (Array.isArray(req.body[fields[i]])) {
+    
+    
+                    req.body[fields[i]] = req.body[fields[i]].map(item => item.trim())
+    
                 }
-                else {
-                    req.body[field] = []
-                }
-
-
-            } else if (Array.isArray(req.body[field])) {
-
-
-                req.body[field] = req.body[field].map(item => item.trim())
-
-            }
-           
-           // console.log(( req.body));
-        } else {
-            req.body[field] = []
-        } 
+               
+               // console.log(( req.body));
+            } else {
+                req.body[fields[i]] = []
+            } 
+            
+        }
 
         next();
     }

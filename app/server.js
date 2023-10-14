@@ -60,11 +60,11 @@ module.exports = class Application {
 
                 },
                 openapi: "3.0.0",
-                host: "localhost:3000",
+                host: "localhost:5000",
                 basePath: "/",
                 servers: [
                     {
-                        url: "http://localhost:3000"
+                        url: "http://localhost:5000"
 
                     }
                 ],

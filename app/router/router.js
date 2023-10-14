@@ -25,6 +25,8 @@ router.use('/admin',VerifyAccessToken,checkRole("ADMIN"),AdminRoutes)
 
 router.use("/user", UserAuthRoutes)
 
+
+
 router.use("/", HomeRoutes);
 
 

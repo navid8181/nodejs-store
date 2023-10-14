@@ -21,9 +21,11 @@ const createProductSchema = Joi.object({
     with: Joi.number().allow(null,0,"0","").error(createHttpError.BadRequest("عرض وارد شده صحیح نمی باشد")),
     length: Joi.number().allow(null,0,"0","").error(createHttpError.BadRequest("طول وارد شده صحیح نمی باشد")),
 
+    type : Joi.string().pattern(/(virtual|physical)/i).error(createHttpError.BadRequest("نوع محصول صحیح نیست")),
+    colors : Joi.array().min(1).max(10).error(createHttpError.BadRequest("رنگ های انتخاب شده باید بین 1و10 باشد")),
     filePath: Joi.allow(),
     filename: Joi.string().pattern(/(\.jpg|\.png|\.webp|\.jpeg|\.gif)$/).error(createHttpError.BadRequest("تصویر ارسال شده صحیح نمی باشد"))
-
+   
 })
 
 

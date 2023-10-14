@@ -6,6 +6,7 @@ const Controller = require("../controller");
 const { BlogModel } = require('../../../models/blogs');
 const { deleteFileInPublic, removeWrongData } = require('../../../utils/function');
 
+const {StatusCodes : httpStatus} = require('http-status-codes'); 
 
 class BlogController extends Controller {
 
@@ -29,10 +30,10 @@ class BlogController extends Controller {
 
             const blog = await BlogModel.create({title,text,short_text,category,tags,image,author})
             //blog.
-            return res.json({
+            return res.status(httpStatus.OK).json({
 
+                status : httpStatus.OK,
                data : {
-                status : 200,
                 message : "بلاگ با موفقیت ایجاد شد"
                }
             })
@@ -57,10 +58,10 @@ class BlogController extends Controller {
 
             const blog = await this.findBlog(id)
 
-            res.status(200).json({
+            res.status(httpStatus.OK).json({
 
+                statusCode : httpStatus.OK,
                 data : {
-                    statusCode : 200,
                     blog
                 }
 
@@ -120,11 +121,11 @@ class BlogController extends Controller {
 
             ])
 
-            return res.status(200).json({
+            return res.status(httpStatus.OK).json({
 
                
+                statusCode : httpStatus.OK,
                 data : {
-                    statusCode : 200,
                     blogs
                 }
 
@@ -175,8 +176,8 @@ class BlogController extends Controller {
 
             res.json({
 
+                statusCode : httpStatus.OK,
                 data:{
-                    statusCode : 200,
                     message : "فایل با موفقیت حذف شد"
                 }
             })
@@ -225,8 +226,8 @@ class BlogController extends Controller {
             //blog.
             return res.json({
 
+                status : httpStatus.OK,
                data : {
-                status : 200,
                 message : "بلاگ با موفقیت اپدیت شد"
                }
             })
@@ -243,7 +244,7 @@ class BlogController extends Controller {
 
     async findBlog (id){
 
-        const blog = await BlogModel.findOne({_id : id}).populate([{path : "category",select : {__v : 0,parent : 0}},{path : "author",select : {__v : 0,otp : 0,Role : 0,bills : 0,discount : 0}}])
+        const blog = await BlogModel.findOne({_id : id}).populate([{path : "category",select : {__v : 0,parent : 0}},{path : "author",select : {__v : 0,otp : 0,Rle : 0,bills : 0,discount : 0}}])
     
         if (!blog)
                 throw createHttpError.NotFound("مقاله با این مشخصات یافت نشد")

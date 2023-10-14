@@ -1,6 +1,7 @@
 const { VerifyAccessToken } = require('../../http/middlewares/VerifyAccessToken');
 const { AdminApiBlogRoutes } = require('./Blog');
 const { AdminApiCategoryRoutes } = require('./category');
+const { adminAPiCourseRouter } = require('./course');
 const { AdminApiProductRouter } = require('./product');
 
 const router = require('express').Router();
@@ -9,6 +10,9 @@ const router = require('express').Router();
 /**
  * @swagger
  *  tags :
+ *      -   name : Admin Panel-Courses 
+ *          description : action of admin Courses (add,remove,update,...)
+ * 
  *      -   name : Admin Panel-Product 
  *          description : action of admin Product (add,remove,update,...)
  *        
@@ -24,6 +28,7 @@ const router = require('express').Router();
 router.use("/products",AdminApiProductRouter)
 router.use('/category',AdminApiCategoryRoutes)
 router.use("/blogs",AdminApiBlogRoutes)
+router.use("/courses",adminAPiCourseRouter)
 
 module.exports = {
     AdminRoutes : router
