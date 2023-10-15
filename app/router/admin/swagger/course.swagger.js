@@ -55,10 +55,21 @@
  *          responses :
  *              200 :
  *                  description : success
+ *                  content :
+ *                      application/json :
+ *                          schema :
+ *                              $ref : '#/definitions/publicDefinitions'
  *              500 : 
  *                  description : error                       
  *         
  */
+
+
+
+
+
+
+
 
 
 /**
@@ -119,6 +130,16 @@
  * 
  */
 
+
+
+
+
+
+
+
+
+
+
 /**
  * 
  * 
@@ -171,4 +192,6 @@
  * 
  * 
  */
+
+
 

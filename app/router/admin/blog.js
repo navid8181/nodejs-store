@@ -1,4 +1,4 @@
-const { AdminBlogController } = require('../../http/controller/admin/blog.controller');
+const { AdminBlogController } = require('../../http/controller/admin/blog/blog.controller');
 const { StringToArray } = require('../../http/middlewares/StringToArray');
 const { VerifyAccessToken } = require('../../http/middlewares/VerifyAccessToken');
 const multerErrorHandler = require('../../http/middlewares/multerErrorHandler');

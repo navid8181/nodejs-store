@@ -1,11 +1,11 @@
-const {CourseModel} = require("../../../models/course");
+const {CourseModel} = require("../../../../models/course");
 const path = require('path');
-const Controller = require("../controller");
+const Controller = require("../../controller");
 const {StatusCodes: httpStatus} = require('http-status-codes');
-const {createCourseSchema} = require("../../validators/admin/course.schema");
+const {createCourseSchema} = require("../../../validators/admin/course.schema");
 const { default: mongoose } = require("mongoose");
 const createHttpError = require("http-errors");
-const { objectIdValidator } = require("../../validators/public.validator");
+const { objectIdValidator } = require("../../../validators/public.validator");
 class CourseController extends Controller {
 
     async getListOfCourse(req, res, next) {
@@ -132,6 +132,26 @@ class CourseController extends Controller {
 
     
     }
+
+
+    
+    
+
+    async findCourseById(id){
+
+        if (!mongoose.isValidObjectId(id))
+            throw createHttpError.BadRequest("شناسه ارسالی معتبر نیست")
+
+        const course = await CourseModel.findOne({_id : id});
+
+        if (!course) throw createHttpError.NotFound("چنین دوره ای یافت نشد")
+
+        return course;
+        
+
+    }
+
+
     // async addCourse (req,res,next){
 
     //     try {
@@ -142,7 +162,6 @@ class CourseController extends Controller {
 
     // }
 
-
     
 
 
@@ -150,5 +169,6 @@ class CourseController extends Controller {
 
 
 module.exports = {
+    AbstractCourseController : CourseController,
     CourseController: new CourseController()
 }
