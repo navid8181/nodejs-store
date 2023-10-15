@@ -42,7 +42,61 @@ class ChapterController extends AbstractCourseController {
         }
 
     }
+    async chapterOfCourses (req,res,next){
+
+        try {
+
+            const {chapterID} = req.params
+
+           
+
+            const course = await this.getChapterOfCourse(chapterID);
+
+         
+
+            res.status(httpStatus.OK).json({
+
+                statusCode : httpStatus.OK,
+                data : {
+
+                    course
+
+
+
+                }
+
+            })
+
+        } catch (error) {
+            next(error)
+        }
+
+    }
  
+    async getChapterOfCourse(id){
+
+        const chapters =  await CourseModel.findOne({_id : id},{chapters : 1,title : 1})
+   
+        if (!chapters)
+            throw createHttpError.NotFound("دوره ای با این مشخصات یافت نشد")
+
+        return chapters;
+
+    }
+
+    async getOneChapter (id){
+
+        const chapter =  await CourseModel.findOne({"chapters._id" : id},{"chapters.$" : 1})
+
+        if (!chapter)
+            throw createHttpError.NotFound ("فصلی با این شناسه یاقت نشد ")
+
+            return chapter;
+
+
+
+    }
+
 
 
 }
