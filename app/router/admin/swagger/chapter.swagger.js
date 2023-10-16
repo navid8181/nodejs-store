@@ -22,6 +22,22 @@
  *                      text :
  *                          type : string
  *                          example : description of courses
+ * 
+ * 
+ *              EditChapter :
+ *                  type : object
+ * 
+ * 
+ *                  properties : 
+ * 
+ * 
+ *                      title :
+ *                          type : string
+ *                          example : chapter one zero to hero java
+ *          
+ *                      text :
+ *                          type : string
+ *                          example : description of courses
  *                     
  *          
  * 
@@ -128,6 +144,76 @@
  *                      application/json :
  *                          schema :
  *                              $ref : '#/definitions/chapterOfCourseDefinitions'
+ * 
+ * 
+ */
+
+/**
+ * 
+ * 
+ * @swagger
+ *  /admin/chapter/remove/{chapterID} :
+ *      patch :
+ *          tags : [Admin Panel-Chapters]
+ *          summary : remove chapter to current Course
+ *          
+ *          parameters :
+ *              -   in : path  
+ *                  name : chapterID
+ *                  required : true
+ *                  type : string
+ *                  example : "652550258655a5854c630922"
+ *                      
+ *          
+ *          
+ *          responses :
+ *              200 :
+ *                  description : success
+ *                  content :
+ *                      application/json :
+ *                          schema :
+ *                              $ref : '#/definitions/publicDefinitions'
+ * 
+ * 
+ */
+
+
+/**
+ * 
+ * 
+ * @swagger
+ *  /admin/chapter/update/{chapterID} :
+ *      post :
+ *          tags : [Admin Panel-Chapters]
+ *          summary : update chapter to current Course
+ *          
+ *          parameters :
+ *              -   in : path  
+ *                  name : chapterID
+ *                  required : true
+ *                  type : string
+ *                  example : "652550258655a5854c630922"
+ *                  
+ * 
+ * 
+ *          requestBody :
+ *              required : true
+ *              content :
+ *                  application/x-www-form-urlencoded :
+ *                      schema :
+ *                          $ref : '#/components/schemas/EditChapter'
+ *                  application/json :
+ *                      schema :
+ *                          $ref : '#/components/schemas/EditChapter'
+ *          
+ *          
+ *          responses :
+ *              200 :
+ *                  description : success
+ *                  content :
+ *                      application/json :
+ *                          schema :
+ *                              $ref : '#/definitions/publicDefinitions'
  * 
  * 
  */
