@@ -73,7 +73,29 @@ function fileFilter(req, file, cb) {
     if (filterFile.includes(ext)) {
         return cb(null, true)
     }
-    req.body.errorUpload = true;
+    req.body.errorUpload = "تصویر ارسال شده صحیح نمی باشد";
+    return cb(null, false)
+
+    // throw createHttpError.BadRequest("فرمت ارسال شده صحیح نمی باشد")
+
+
+}
+function videoFilter(req, file, cb) {
+
+    const ext = path.extname(file.originalname)
+    console.log(ext);
+    const filterFile = [
+        ".mp4",
+        ".mpg",
+        ".mov",
+        ".avi",
+        ".mkv"
+    ]
+
+    if (filterFile.includes(ext)) {
+        return cb(null, true)
+    }
+    req.body.errorUpload = "ویدیو ارسال شده صحیح نمی باشد";
     return cb(null, false)
 
     // throw createHttpError.BadRequest("فرمت ارسال شده صحیح نمی باشد")
@@ -89,8 +111,18 @@ const uploadFile = multer({
     }
 
 })
+const videoMaxSize = 300 * 1000 * 1000;
+const uploadVideo = multer({
+    storage,
+    videoFilter,
+    limits: {
+        fileSize: videoMaxSize
+    }
+
+})
 
 
 module.exports = {
-    uploadFile
+    uploadFile,
+    uploadVideo
 }

@@ -5,7 +5,7 @@ function multerErrorHandler(req,res,next) {
     
     try {
         if ( req.body?.errorUpload)
-        throw createHttpError.BadRequest("فرمت ارسال شده صحیح نمی باشد")
+        throw createHttpError.BadRequest(req.body?.errorUpload)
 
 
        return next();

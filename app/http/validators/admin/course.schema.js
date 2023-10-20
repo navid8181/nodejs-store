@@ -23,7 +23,27 @@ const createCourseSchema = Joi.object({
    
 })
 
+const createEpisodeSchema = Joi.object({
+
+
+    title: Joi.string().min(3).max(30).error(createHttpError.BadRequest("عنوان دوره صحیح نمی باشد")),
+    text: Joi.string().error(createHttpError.BadRequest("متن ارسال شده صحیح نمی باشد")),
+
+
+    chapterID: Joi.string().pattern(MongoIdPattern).error(createHttpError.BadRequest("فصل  مورد نظر یافت نشد")),
+    courseID: Joi.string().pattern(MongoIdPattern).error(createHttpError.BadRequest("دوره مورد نظر یافت نشد")),
+
+    
+    type : Joi.string().pattern(/(lock|unlock)/i).error(createHttpError.BadRequest("نوع محصول صحیح نیست")),
+    
+    filePath: Joi.allow(),
+    filename: Joi.string().pattern(/(\.mp4|\.mpg|\.mov|\.avi|\.mkv)$/).error(createHttpError.BadRequest("تصویر ارسال شده صحیح نمی باشد"))
+
+   
+})
+
 
 module.exports = {
-    createCourseSchema
+    createCourseSchema,
+    createEpisodeSchema
 }

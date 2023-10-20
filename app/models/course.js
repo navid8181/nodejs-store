@@ -5,14 +5,16 @@ const commentSchema = require("./public.schema");
 const episode  = new mongoose.Schema({
     title : {type : String , required : true},
     text : {type : String ,  required : true},
-    type : {type : String , default : "free"},
-    time : {type : String ,  required : true},
+    type : {type : String , default : "unlock"},
+    time : {type : Date ,  required : true},
+    videoAddress : {type : String,required : true}
 })
 
 const Chapter = new mongoose.Schema({
 
     title : {type : String , required : true},
     text : {type : String , default : ""},
+    totalTime : {type : Date,default : new Date(0)},
     episode : {type : [episode],default : []}
 
 
@@ -37,11 +39,15 @@ const courseSchema = new mongoose.Schema({
     status : {type : String,default : "notStarted"/* notStarted - completed - Holding */},
     time : {type : String,default : "00:00:00" },
     format : {type : String },
-    teacher : {type : mongoose.Types.ObjectId , required : true},
+    teacher : {type : mongoose.Types.ObjectId,ref : "user" , required : true},
     chapters : {type : [Chapter],default : []},
     students : {type  : [mongoose.Types.ObjectId],ref : "user",default : []}
    
 
+},{
+    toJSON : {
+        virtuals : true
+    }
 })
 
     courseSchema.index({title : "text",short_text :"text",text : "text"})

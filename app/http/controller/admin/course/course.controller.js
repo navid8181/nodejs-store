@@ -20,9 +20,10 @@ class CourseController extends Controller {
                     $text: {
                         $search: search
                     }
-                }).sort({_id: -1})
+                }).populate([{path : "category"}])
+                .sort({_id: -1})
              else 
-                courses = await CourseModel.find({}).sort({_id: -1})
+                courses = await CourseModel.find({}).populate([{path : "category"},{path : "teacher", select : {first_name : 1,last_name : 1,mobile : 1,_id :0}}]).sort({_id: -1})
             
             return res.json({
 

@@ -7,6 +7,9 @@
  *      -   name : Admin Panel-Chapters 
  *          description : Admin chapter Section
  * 
+ *      -   name : Admin Panel-Episode 
+ *          description : the video(Episode) of chapter section
+ * 
  *      -   name : Admin Panel-Product 
  *          description : action of admin Product (add,remove,update,...)
  *        

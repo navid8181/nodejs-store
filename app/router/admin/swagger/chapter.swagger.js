@@ -183,7 +183,7 @@
  * 
  * @swagger
  *  /admin/chapter/update/{chapterID} :
- *      post :
+ *      patch :
  *          tags : [Admin Panel-Chapters]
  *          summary : update chapter to current Course
  *          
