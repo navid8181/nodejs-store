@@ -8,8 +8,12 @@ const episode  = new mongoose.Schema({
     type : {type : String , default : "unlock"},
     time : {type : Date ,  required : true},
     videoAddress : {type : String,required : true}
+},{toJSON :{
+    virtuals : true
+}})
+episode.virtual("videoURL").get(function(){
+    return `${process.env.BASE_URL}:${process.env.PORT}/${this.videoAddress}`
 })
-
 const Chapter = new mongoose.Schema({
 
     title : {type : String , required : true},
@@ -51,6 +55,10 @@ const courseSchema = new mongoose.Schema({
 })
 
     courseSchema.index({title : "text",short_text :"text",text : "text"})
+
+    courseSchema.virtual("imageURL").get(function(){
+        return `${process.env.BASE_URL}:${process.env.PORT}/${this.image}`
+    })
 
 module.exports = {
 
