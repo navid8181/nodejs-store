@@ -65,6 +65,70 @@
  */
 
 
+/**
+ * 
+ * @swagger
+ *  /admin/courses/update/{id} :
+ *      patch :
+ *          tags : [Admin Panel-Courses]
+ *          summary : update Product
+ *  
+ *          parameters :
+ *              -   in : path
+ *                  name : id
+ *                  type : string   
+ *                  required : true        
+ *  
+ *          requestBody : 
+ * 
+ *              content :   
+ * 
+ *                  multipart/form-data :
+ * 
+ *                      schema :
+ *                          $ref : '#/components/sv'
+ *                          type : object
+ * 
+ *                          properties :
+ *                              title : 
+ *                                  type : string
+ *                                  example : عنوان دوره    
+ *                              text : 
+ *                                  type : string    
+ *                              short_text : 
+ *                                  type : string    
+ *                              tags : 
+ *                                  type : array    
+ *                              category : 
+ *                                  type : string    
+ *                              price : 
+ *                                  type : string    
+ *                              image : 
+ *                                  type : string  
+ *                                  format : binary  
+ *                                  
+ *                              discount : 
+ *                                  type : string   
+ *  
+ *                              type :
+ *                                  type : string
+ *                                  enum : [free,cash,special] 
+ * 
+ * 
+ * 
+ *          responses :
+ *              200 :
+ *                  description : success
+ *                  content :
+ *                      application/json :
+ *                          schema :
+ *                              $ref : '#/definitions/publicDefinitions'
+ *              500 : 
+ *                  description : error                       
+ *         
+ */
+
+
 
 
 

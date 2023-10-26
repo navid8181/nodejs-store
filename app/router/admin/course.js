@@ -13,6 +13,7 @@ const router = require('express').Router();
 router.post("/add",uploadFile.single("image"),multerErrorHandler,StringToArray("tags"),CourseController.addCourse)
 router.get("/list",CourseController.getListOfCourse)
 router.get("/:id",CourseController.getCourseById)
+router.patch("/update/:id",uploadFile.single("image"),multerErrorHandler,CourseController.updateCourseById)
 
 
 

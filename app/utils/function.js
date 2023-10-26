@@ -180,7 +180,7 @@ function removeWrongData(obj = {}, blockList =[]) {
 function deleteFileInPublic(fileAddress) {
     if (fileAddress) {
         const filePath = path.join(__dirname, "..", "..", "public", fileAddress);
-
+        if (fs.existsSync(filePath))
         fs.unlinkSync(filePath);
     }
 

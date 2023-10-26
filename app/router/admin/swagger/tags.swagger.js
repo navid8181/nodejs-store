@@ -4,6 +4,9 @@
  *      -   name : Admin Panel-Courses 
  *          description : action of admin Courses (add,remove,update,...)
  * 
+ *      -   name : Admin Panel-Users 
+ *          description : Admin User management Section
+ * 
  *      -   name : Admin Panel-Chapters 
  *          description : Admin chapter Section
  * 

@@ -23,6 +23,7 @@ const schema = new mongoose.Schema({
 
 })
 
+schema.index({first_name : "text",last_name : "text",mobile : "text",email : "text"})
 
 module.exports = {
 

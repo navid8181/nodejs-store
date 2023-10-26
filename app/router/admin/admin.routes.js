@@ -5,6 +5,7 @@ const { adminApiChapterRouter } = require('./chapter');
 const { adminAPiCourseRouter } = require('./course');
 const { AdminApiEpisodeRouter } = require('./episode');
 const { AdminApiProductRouter } = require('./product');
+const { AdminApiUserRouter } = require('./user');
 
 const router = require('express').Router();
 
@@ -18,6 +19,8 @@ router.use("/courses",adminAPiCourseRouter)
 
 router.use("/chapter",adminApiChapterRouter)
 router.use("/Episode",AdminApiEpisodeRouter)
+
+router.use("/user",AdminApiUserRouter)
 
 module.exports = {
     AdminRoutes : router

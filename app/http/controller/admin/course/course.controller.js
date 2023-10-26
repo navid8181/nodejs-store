@@ -6,6 +6,7 @@ const {createCourseSchema} = require("../../../validators/admin/course.schema");
 const { default: mongoose } = require("mongoose");
 const createHttpError = require("http-errors");
 const { objectIdValidator } = require("../../../validators/public.validator");
+const { copyObject, removeWrongData, deleteFileInPublic } = require("../../../../utils/function");
 class CourseController extends Controller {
 
     async getListOfCourse(req, res, next) {
@@ -153,15 +154,37 @@ class CourseController extends Controller {
     }
 
 
-    // async addCourse (req,res,next){
+    async updateCourseById (req,res,next){
 
-    //     try {
+        try {
 
-    //     } catch (error) {
-    //         next(error)
-    //     }
+            const {id} = req.params;
 
-    // }
+           const course =  await this.findCourseById(id)
+
+            const data = copyObject(req.body)
+
+            const blackList = ["time","chapters","episode","students","likes","bookmarks","likes","dislikes","comments"]
+
+            removeWrongData(data,blackList)
+
+                const {filename,filePath} = req.body;
+
+                if (filename){
+                    data.image = path.join(filePath, filename).replace(/\\/g, "/")
+
+                    deleteFileInPublic(course.image)
+                }
+
+
+            return res.json(
+              data
+            )
+        } catch (error) {
+            next(error)
+        }
+
+    }
 
     
 
