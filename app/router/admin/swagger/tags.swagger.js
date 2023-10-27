@@ -1,6 +1,10 @@
 /**
  * @swagger
  *  tags :
+ *      -   name : Admin Panel-RBAC 
+ *          description : Role Base Access Management Control
+ * 
+ * 
  *      -   name : Admin Panel-Courses 
  *          description : action of admin Courses (add,remove,update,...)
  * 
