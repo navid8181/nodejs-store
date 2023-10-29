@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const permissionSchema = mongoose.Schema({
+const permissionSchema = new mongoose.Schema({
 
     title : {type : String , unique : true},
 
@@ -16,5 +16,5 @@ const permissionSchema = mongoose.Schema({
 
 
 module.exports = {
-    permissionModel : mongoose.model("permission",permissionSchema)
+    permissionModel :  mongoose.model("permission",permissionSchema)
 }
