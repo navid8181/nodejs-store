@@ -8,14 +8,14 @@
  *              type : object
  * 
  *              required :
- *                  -   title
+ *                  -   name
  *                  -   description
  * 
  *              properties :
  * 
- *                  title : 
+ *                  name : 
  *                      type : string
- *                      description : title of permission
+ *                      description : name of permission
  * 
  * 
  *                  description :
@@ -44,7 +44,7 @@
  * 
  *              properties :
  * 
- *                  title : 
+ *                  name : 
  *                      type : string
  *                      description : title of permission
  * 
@@ -76,7 +76,7 @@
  *              required : true
  * 
  *              content :
- *                  multipart/x-www-form-urlencoded :
+ *                  application/x-www-form-urlencoded :
  *                      schema :
  *                          $ref : '#/components/schemas/Permission'
  *                      
@@ -115,7 +115,7 @@
  *              required : true
  * 
  *              content :
- *                  multipart/x-www-form-urlencoded :
+ *                  application/x-www-form-urlencoded :
  *                      schema :
  *                          $ref : '#/components/schemas/Edit-Permission'
  *                      

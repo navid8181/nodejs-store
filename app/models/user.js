@@ -1,4 +1,5 @@
 const { default: mongoose } = require("mongoose");
+const { ROLE } = require("../utils/Constant");
 
 const schema = new mongoose.Schema({
     first_name : {type : String },
@@ -18,7 +19,7 @@ const schema = new mongoose.Schema({
 
     discount : {type : Number , default : 0},
     birthDay : {type : String },
-    Role : {type : [String], default : ["USER"]},
+    Role : {type : String, default : ROLE.USER},
     courses : {type : [mongoose.Types.ObjectId],ref : "course", default : []}
 
 })

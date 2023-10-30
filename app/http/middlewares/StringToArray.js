@@ -5,7 +5,7 @@ function StringToArray(...fields) {
      
 
         for (let i = 0; i < fields.length; i++) {
-            console.log( req.body[fields[i]]);
+          //  console.log( req.body[fields[i]]);
             
             if (req.body[fields[i]]) {
         

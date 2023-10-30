@@ -6,21 +6,23 @@
  *      schemas :
  *          Role :
  *              type : object
- * 
  *              required :
  *                  -   title
- * 
+ *                  -   description
  *              properties :
  * 
  *                  title : 
  *                      type : string
  *                      description : title of Role
  * 
- * 
- *                  permission :
- *              
+ *                  description : 
  *                      type : string
- *                      enum : [blog,course,product]
+ *                      description : description of Role
+ * 
+ *                  permissions :
+ *              
+ *                      type : array
+ *                      description : list of objectID
  *                      
  *                      
  *                  
@@ -28,7 +30,6 @@
  *          
  * 
  */
-
 
 
 /**
@@ -47,11 +48,14 @@
  *                      type : string
  *                      description : title of Role
  * 
- * 
- *                  permission :
- *              
+ *                  description : 
  *                      type : string
- *                      enum : [blog,course,product]
+ *                      description : description of Role
+ * 
+ *                  permissions :
+ *              
+ *                      type : array
+ *                      description : list of objectID
  *                      
  *                      
  *                  
@@ -59,7 +63,6 @@
  *          
  * 
  */
-
 
 
 /**
@@ -72,10 +75,9 @@
  *          summary : add Role 
  *          
  *          requestBody :
- *              required : true
  * 
  *              content :
- *                  multipart/x-www-form-urlencoded :
+ *                   application/x-www-form-urlencoded :
  *                      schema :
  *                          $ref : '#/components/schemas/Role'
  *                      
@@ -114,9 +116,9 @@
  *              required : true
  * 
  *              content :
- *                  multipart/x-www-form-urlencoded :
+ *                  application/x-www-form-urlencoded :
  *                      schema :
- *                          $ref : '#/components/schemas/ Edit-Role'
+ *                          $ref : '#/components/schemas/Edit-Role'
  *                      
  *          
  *          
@@ -160,6 +162,10 @@
  *                                      title :
  *                                          type : string
  *                                          example : title of Role
+ * 
+ *                                      description :
+ *                                          type : string
+ *                                          example : description of Role
  *      
  *                                      permission :
  *                                          type : array
@@ -207,12 +213,11 @@
  */
 
 
-
 /**
  * 
  * 
  * @swagger
- *  /admin/role/delete/{id} :
+ *  /admin/role/delete/{field} :
  *      delete :
  *          tags : [Admin Panel-RBAC]
  *          summary : delete Role 
@@ -220,7 +225,7 @@
  *  
  *          parameters :
  *              -   in : path
- *                  name : id
+ *                  name : field
  *                  type : string
  *                  required : true
  * 
