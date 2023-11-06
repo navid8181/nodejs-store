@@ -10,6 +10,18 @@ module.exports = {
 
 
     },
+    PERMISSIONS : {
+        USER : "USER",
+        COURSE: "ADMIN",
+        BLOG : "WRITER",
+        CATEGORY : "category",
+        PRODUCT : "product" ,
+        EPISODE : "episode" ,
+        CHAPTER : "chapter" ,
+        ALL : "all" 
+
+
+    },
     SECRET_KEY : "F4F7DAD133BAA6626B757C7C96A25C59AFE0EB46D92471DA8C25327AEB26B9D5",
     REFRESH_TOKEN_SECRET_KEY : "28703CF2C9C6971C1688BC6ED7336DCD34DB161713C6B19CAE61077F67801B4C"
 

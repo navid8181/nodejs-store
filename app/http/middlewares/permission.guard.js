@@ -1,6 +1,7 @@
 const createHttpError = require("http-errors");
 const {permissionModel} = require("../../models/permission");
 const {roleModel} = require("../../models/role");
+const { PERMISSIONS } = require("../../utils/Constant");
 
 function checkRole(requiredPermission =[]) {
 
@@ -19,11 +20,17 @@ function checkRole(requiredPermission =[]) {
                 }
             })
 
-
+            
+            
             const mapNames = permissions.map(item => item.name)
             
+            
+            console.log(userRole);
+
             const permissionMapName = new Map()
             mapNames.forEach(item =>permissionMapName.set(item,0))
+            if (permissionMapName.has(PERMISSIONS.ALL))
+                return next();
             console.log(permissionMapName);
 
             const hasPermission = requiredPermission.every(item => {
