@@ -19,9 +19,13 @@ const schema = new mongoose.Schema({
     dislike : {type : [mongoose.Types.ObjectId],ref : "users",default : []},
     bookmark : {type : [mongoose.Types.ObjectId],ref : "users",default : []}
 
-},{timestamps : true,versionKey : false})
+},{timestamps : true,versionKey : false,toJSON : {virtuals : true}})
 
 
+schema.virtual("ImageURL").get(function(){
+    return `${process.env.BASE_URL}:${process.env.PORT}/${this.image}`
+})
+  
 
 
 module.exports = {

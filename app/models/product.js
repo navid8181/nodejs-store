@@ -19,7 +19,7 @@ const schema = new mongoose.Schema({
     type : {type : String ,required : true },
     time : {type : String },
     format : {type : String },
-    supplier : {type : mongoose.Types.ObjectId , required : true},
+    supplier : {type : mongoose.Types.ObjectId , required : true , ref : "user"},
     features : {type : Object ,default : {
         length : "",
         height : "",
@@ -36,7 +36,10 @@ const schema = new mongoose.Schema({
 })
 
 schema.index({title : "text",short_text : "text",text : "text"})
-
+schema.virtual("ImageURL").get(function(){
+    return this.image.map(item => `${process.env.BASE_URL}:${process.env.PORT}/${item}`)
+})
+  
 module.exports = {
 
     ProductModel : mongoose.model("product",schema)

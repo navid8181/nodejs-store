@@ -1,0 +1,18 @@
+{
+  blogs {
+    _id
+    title
+    text
+    short_text
+    ImageURL
+    author {
+      _id
+      first_name
+      last_name
+    }
+    category {
+      _id
+      title
+    }
+  }
+}
